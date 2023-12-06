@@ -23,6 +23,7 @@ from django.conf import settings
 urlpatterns = [
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
+    path('comments/', include('comment.urls')),
 ]
 
-urlpatterns += static(settings.MEDLA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

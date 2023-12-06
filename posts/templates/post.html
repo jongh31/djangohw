@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 상세 페이지</title>
+</head>
+<body>
+    <button style="position: absolute; top: 10px; right: 10px;" onclick="location.href='{% url 'logout' %}'">로그아웃</button>
+    <h1>{{post.title}}</h1>
+    <p>작성일: {{post.created_at}}</p>
+    <p>작성자: {{post.user}}</p>
+    <p>{{post.content}}</p><br>
+    {% if request.user == post.user %}
+        <button onclick="location.href='{% url 'post_delete' post.id %}'">게시물 삭제</button>
+    {% endif %}
+    <p>조회수: {{post.views}}</p>
+    <p>------------------------------------------------------------------------------------------------------</p>
+    <button type="button" onclick="location.href='{% url 'comment_create' post.id %}'">댓글 쓰기</button><br>
+    <h3>댓글</h3>
+    {% for comment in comment_list %}
+        <p>작성자: {{comment.user}}</p>
+        <p>내용: {{comment.content}}</p>
+        <p>작성일: {{comment.created_at}}</p>
+        {% if request.user == post.user %}
+            <button onclick="location.href='{% url 'comment_delete' post.id comment.id %}'">삭제</button>
+        {% endif %}
+        <p>------------------------------------------------------------------------------------------------------</p>
+    {% endfor %}
+    <br>
+    <a href="{% url 'post_list' %}">홈으로 돌아가기</a>
+</body>
+</html>
